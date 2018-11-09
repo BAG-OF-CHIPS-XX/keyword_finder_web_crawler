@@ -9,8 +9,8 @@ simple crawler to find pages on a website that include a specified keyword or ph
 
 
 
-website_to_crawl = 'website.com' 		#website.com  -do not include 'www.'' or 'http'
-keyword_to_search_for = 'this is my keyword phrase' #keyword or phrase
+website_to_crawl = 'hashtoolkit.com' 		#website.com  -do not include 'www.'' or 'http'
+keyword_to_search_for = 'Recently' #keyword or phrase
 
 
 class someSpider(CrawlSpider):
@@ -24,18 +24,18 @@ class someSpider(CrawlSpider):
 
 
 	def parse_obj(self,response):
-	    text = response.xpath('//body//text()').extract()
-	    text = ''.join(text)
-	    link = response.request.url
-	    with open('urls.txt', "a") as f:
-	        if self.keyword in text:
-    			f.write(link+'\n') 
+		text = response.xpath('//body//text()').extract()
+		text = ''.join(text)
+		link = response.request.url
+		with open('urls.txt', "a") as f:
+			if self.keyword in text:
+				f.write(link+'\n') 
 
 
 
 if __name__ == "__main__":
 	process = CrawlerProcess({
-	    'USER_AGENT': 'Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1)'
+		'USER_AGENT': 'Mozilla/5.0 (compatible; MSIE 7.0; Windows NT 5.1)'
 	})
 	process.crawl(someSpider)
 	process.start() # the script will block here until the crawling is finished
